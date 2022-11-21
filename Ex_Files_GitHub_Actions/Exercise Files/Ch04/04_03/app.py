@@ -8,10 +8,10 @@ from flask import Flask, jsonify, abort, make_response
 APP = Flask(__name__)
 
 # Load the data
-MASCOTS = json.load(open('data.json', 'r'))
+MASCOTS = json.load(open("data.json", "r"))
 
 
-@APP.route('/', methods=['GET'])
+@APP.route("/", methods=["GET"])
 def get_mascots():
     """
     Function: get_mascots
@@ -21,7 +21,7 @@ def get_mascots():
     return jsonify(MASCOTS)
 
 
-@APP.route('/<guid>', methods=['GET'])
+@APP.route("/<guid>", methods=["GET"])
 def get_mascot(guid):
     """
     Function: get_mascot
@@ -29,7 +29,7 @@ def get_mascot(guid):
     Returns: The mascot object with GUID matching the input
     """
     for mascot in MASCOTS:
-        if guid == mascot['guid']:
+        if guid == mascot["guid"]:
             return jsonify(mascot)
     abort(404)
     return None
@@ -42,8 +42,8 @@ def not_found(error):
     Input: The error
     Returns: HTTP 404 with r
     """
-    return make_response(jsonify({'error': str(error)}), 404)
+    return make_response(jsonify({"error": str(error)}), 404)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     APP.run("0.0.0.0", port=8080, debug=True)
